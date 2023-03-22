@@ -1,0 +1,351 @@
+// this file is under GPL-3. see LICENSE
+@use "sass:map";
+
+@use "macro";
+
+$cb_desktop: 25px;
+$cb_mobile: 20px;
+
+$col_dark: (
+    dark-blue: hsl(235, 21%, 11%),
+    dark-blue-washed: hsl(235, 24%, 19%),
+    light-gray-blue: hsl(234, 39%, 85%),
+    hover: hsl(236, 33%, 92%),
+    gray-blue: hsl(234, 11%, 52%),
+    dark-gray-blue: hsl(233, 14%, 35%),
+    darker-gray-blue: hsl(237, 14%, 26%)
+);
+
+$col_light: (
+    light-gray: hsl(0, 0%, 98%),
+    light-gray-blue: hsl(236, 33%, 92%),
+    mid-gray-blue: hsl(233, 11%, 84%),
+    gray-blue: hsl(236, 9%, 61%),
+    dark-gray-blue: hsl(235, 19%, 35%)
+);
+
+$col_neutral: (
+    gradient-pink: rgb(204, 105, 221),
+    gradient-blue:  rgb(53, 156, 224),
+    input-caret: rgb(77, 103, 218)
+);
+
+@function dark($c) { @return map.get($col_dark, $c); }
+@function light($c) { @return map.get($col_light, $c); }
+@function col($c) { @return map.get($col_neutral, $c); }
+
+@font-face {
+    @include macro.gfont("JosefinSans", "wght", 400 700);
+}
+
+button {
+    background: none;
+    border: none;
+    font-family: "JosefinSans";
+    cursor: pointer;
+}
+
+body {
+    font-family: "JosefinSans";
+    background-color: dark(dark-blue);
+    background-repeat: no-repeat;
+    background-size: cover;
+    @include macro.resp(
+        $background-image:
+            url(./images/bg-desktop-dark.jpg)
+            url(./images/bg-mobile-dark.jpg),
+        $font-size: 18px 12px
+    );
+}
+
+body.light {
+    background-color: light(light-gray);
+    @include macro.resp(
+        $background-image:
+            url(./images/bg-desktop-light.jpg)
+            url(./images/bg-mobile-light.jpg)
+    );
+}
+
+#container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    @include macro.resp(
+        $top: 10% 5%,
+        $width: 40% 90%
+    );
+}
+
+#heading-container {
+    color: white;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#todo-heading {
+    font-weight: 700;
+    @include macro.resp(
+        $font-size: 36px 28px
+    );
+}
+
+#theme-toggle {
+    width: 26px;
+    height: 26px;
+    border: none;
+    background-color: transparent;
+    background-image: url(./images/icon-sun.svg);
+}
+
+#theme-toggle.light {
+    background-image: url(./images/icon-moon.svg);
+}
+
+.rounded-box {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    width: 100%;
+    background-color: dark(dark-blue-washed);
+}
+
+.rounded-box.light {
+    background-color: white;
+}
+
+.checkbox {
+    cursor: pointer;
+    margin-right: 20px;
+    border-radius: 50%;
+    border: 1px solid dark(dark-gray-blue);
+}
+
+.checkbox.light {
+    border-color: light(light-gray-blue);
+}
+
+.checkbox:hover:not(.checked) {
+    border: double 1px transparent;
+    background-image:
+        linear-gradient(dark(dark-blue-washed), dark(dark-blue-washed)),
+        linear-gradient(
+            to bottom right, col(gradient-blue), col(gradient-pink));
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+.checkbox.light:hover:not(.checked) {
+    background-image:
+        linear-gradient(white, white),
+        linear-gradient(
+            to bottom right, col(gradient-blue), col(gradient-pink));
+}
+
+.checkbox.checked {
+    background-image: linear-gradient(
+        to bottom right, col(gradient-blue), col(gradient-pink));
+    border: none;
+}
+
+.cb-label {
+    cursor: pointer;
+    display: block;
+    background-position: center;
+    background-repeat: no-repeat;
+    @include macro.resp(
+        $width: $cb_desktop $cb_mobile,
+        $height: $cb_desktop $cb_mobile
+    );
+}
+
+.checked>.cb-label {
+    background-image: url(./images/icon-check.svg);
+    @include macro.resp(
+        $width: calc($cb_desktop + 2px) calc($cb_mobile + 2px),
+        $height: calc($cb_desktop + 2px) calc($cb_mobile + 2px)
+    );
+}
+
+#todo-input::placeholder {
+    color: dark(light-gray-blue);
+}
+
+#todo-input.light::placeholder {
+    color: light(dark-gray-blue);
+}
+
+#todo-input {
+    flex-basis: 100%;
+    caret-color: col(input-caret);
+    font-family: "JosefinSans";
+    color: dark(light-gray-blue);
+    outline: none;
+    border: none;
+    background: none;
+    @include macro.resp(
+        $font-size: 18px 12px
+    );
+}
+
+#todo-input.light {
+    color: black;
+}
+
+#todo-entries {
+    flex-flow: column nowrap;
+    @include macro.resp(
+        $margin-top: 30px 20px
+    );
+}
+
+.todo-entry {
+    border-bottom: 1px solid dark(darker-gray-blue);
+}
+
+.todo-entry.light {
+    border-bottom-color: light(light-gray-blue);
+}
+
+.todo-entry-text {
+    max-width: 80%;
+    box-sizing: border-box;
+    color: dark(light-gray-blue);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.todo-entry-text.light {
+    color: light(dark-gray-blue);
+}
+
+.todo-entry-text.crossed {
+    color: dark(dark-gray-blue);
+    text-decoration: line-through;
+}
+
+.todo-entry-text.light.crossed {
+    color: light(mid-gray-blue);
+}
+
+.list-style {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    @include macro.resp(
+        $padding-top: Skip 15px,
+        $padding-bottom: Skip 15px
+    );
+}
+
+.todo-delete-hint {
+    margin-left: auto;
+    display: none;
+    cursor: pointer;
+}
+
+.todo-entry:hover>.todo-delete-hint {
+    display: inline;
+}
+
+#controls {
+    justify-content: space-between;
+}
+
+#todo-left-display {
+    color: dark(dark-gray-blue);
+    font-size: 14px;
+    @include macro.resp(
+        $width: 30% 50%
+    );
+}
+
+#todo-left-display.light {
+    color: light(gray-blue);
+}
+
+.control-button {
+    font-size: 16px;
+    font-weight: 700;
+    color: dark(dark-gray-blue);
+    @include macro.resp(
+        $margin-left: Skip 5px,
+        $margin-right: Skip 5px
+    );
+}
+
+.control-button.light {
+    color: light(gray-blue);
+}
+
+.control-button:hover {
+    color: white;
+}
+
+.control-button.light:hover {
+    color: dark(dark-gray-blue);
+}
+
+.control-button.active {
+    color: col(input-caret);
+}
+
+#todo-display-selection {
+    @include macro.resp(
+        $margin-top: Skip 20px,
+        $display: Skip flex,
+        $justify-content: Skip center
+    );
+}
+
+#todo-clear-completed {
+    color: dark(dark-gray-blue);
+    text-align: right;
+    @include macro.resp(
+        $width: 30% 50%
+    );
+}
+
+#todo-clear-completed.light {
+    color: light(gray-blue);
+}
+
+#todo-clear-completed:hover {
+    color: dark(hover);
+}
+
+#todo-clear-completed.light:hover {
+    color: dark(dark-gray-blue);
+}
+
+#drag-hint {
+    font-size: 14px;
+    display: block;
+    color: dark(dark-gray-blue);
+    text-align: center;
+    margin-top: 50px;
+}
+
+#drag-hint.light {
+    color: light(gray-blue);
+}
+
+.attribution {
+    color: dark(dark-blue-washed);
+    font-size: 11px;
+    text-align: center;
+}
+
+.attribution>a {
+    color: hsl(229, 82%, 63%);
+}
+
+.attribution>a.light {
+    color: hsl(228, 43%, 27%);
+}

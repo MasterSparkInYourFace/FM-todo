@@ -1,0 +1,382 @@
+@font-face {
+  font-family: "JosefinSans";
+  src: url("./fonts/JosefinSans-VariableFont_wght.ttf") format(truetype) tech(variations);
+  font-weight: 400 700;
+}
+button {
+  background: none;
+  border: none;
+  font-family: "JosefinSans";
+  cursor: pointer;
+}
+
+body {
+  font-family: "JosefinSans";
+  background-color: hsl(235, 21%, 11%);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media only screen and (max-width: 375px) {
+  body {
+    background-image: url(./images/bg-mobile-dark.jpg);
+    font-size: 12px;
+  }
+}
+@media only screen and (min-width: 376px) {
+  body {
+    background-image: url(./images/bg-desktop-dark.jpg);
+    font-size: 18px;
+  }
+}
+
+body.light {
+  background-color: hsl(0, 0%, 98%);
+}
+@media only screen and (max-width: 375px) {
+  body.light {
+    background-image: url(./images/bg-mobile-light.jpg);
+  }
+}
+@media only screen and (min-width: 376px) {
+  body.light {
+    background-image: url(./images/bg-desktop-light.jpg);
+  }
+}
+
+#container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media only screen and (max-width: 375px) {
+  #container {
+    top: 5%;
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 376px) {
+  #container {
+    top: 10%;
+    width: 40%;
+  }
+}
+
+#heading-container {
+  color: white;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#todo-heading {
+  font-weight: 700;
+}
+@media only screen and (max-width: 375px) {
+  #todo-heading {
+    font-size: 28px;
+  }
+}
+@media only screen and (min-width: 376px) {
+  #todo-heading {
+    font-size: 36px;
+  }
+}
+
+#theme-toggle {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background-color: transparent;
+  background-image: url(./images/icon-sun.svg);
+}
+
+#theme-toggle.light {
+  background-image: url(./images/icon-moon.svg);
+}
+
+.rounded-box {
+  display: flex;
+  box-sizing: border-box;
+  box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  width: 100%;
+  background-color: hsl(235, 24%, 19%);
+}
+
+.rounded-box.light {
+  background-color: white;
+}
+
+.checkbox {
+  cursor: pointer;
+  margin-right: 20px;
+  border-radius: 50%;
+  border: 1px solid hsl(233, 14%, 35%);
+}
+
+.checkbox.light {
+  border-color: hsl(236, 33%, 92%);
+}
+
+.checkbox:hover:not(.checked) {
+  border: double 1px transparent;
+  background-image: linear-gradient(hsl(235, 24%, 19%), hsl(235, 24%, 19%)), linear-gradient(to bottom right, rgb(53, 156, 224), rgb(204, 105, 221));
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.checkbox.light:hover:not(.checked) {
+  background-image: linear-gradient(white, white), linear-gradient(to bottom right, rgb(53, 156, 224), rgb(204, 105, 221));
+}
+
+.checkbox.checked {
+  background-image: linear-gradient(to bottom right, rgb(53, 156, 224), rgb(204, 105, 221));
+  border: none;
+}
+
+.cb-label {
+  cursor: pointer;
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media only screen and (max-width: 375px) {
+  .cb-label {
+    width: 20px;
+    height: 20px;
+  }
+}
+@media only screen and (min-width: 376px) {
+  .cb-label {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.checked > .cb-label {
+  background-image: url(./images/icon-check.svg);
+}
+@media only screen and (max-width: 375px) {
+  .checked > .cb-label {
+    width: 22px;
+    height: 22px;
+  }
+}
+@media only screen and (min-width: 376px) {
+  .checked > .cb-label {
+    width: 27px;
+    height: 27px;
+  }
+}
+
+#todo-input::placeholder {
+  color: hsl(234, 39%, 85%);
+}
+
+#todo-input.light::placeholder {
+  color: hsl(235, 19%, 35%);
+}
+
+#todo-input {
+  flex-basis: 100%;
+  caret-color: rgb(77, 103, 218);
+  font-family: "JosefinSans";
+  color: hsl(234, 39%, 85%);
+  outline: none;
+  border: none;
+  background: none;
+}
+@media only screen and (max-width: 375px) {
+  #todo-input {
+    font-size: 12px;
+  }
+}
+@media only screen and (min-width: 376px) {
+  #todo-input {
+    font-size: 18px;
+  }
+}
+
+#todo-input.light {
+  color: black;
+}
+
+#todo-entries {
+  flex-flow: column nowrap;
+}
+@media only screen and (max-width: 375px) {
+  #todo-entries {
+    margin-top: 20px;
+  }
+}
+@media only screen and (min-width: 376px) {
+  #todo-entries {
+    margin-top: 30px;
+  }
+}
+
+.todo-entry {
+  border-bottom: 1px solid hsl(237, 14%, 26%);
+}
+
+.todo-entry.light {
+  border-bottom-color: hsl(236, 33%, 92%);
+}
+
+.todo-entry-text {
+  max-width: 80%;
+  box-sizing: border-box;
+  color: hsl(234, 39%, 85%);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.todo-entry-text.light {
+  color: hsl(235, 19%, 35%);
+}
+
+.todo-entry-text.crossed {
+  color: hsl(233, 14%, 35%);
+  text-decoration: line-through;
+}
+
+.todo-entry-text.light.crossed {
+  color: hsl(233, 11%, 84%);
+}
+
+.list-style {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+@media only screen and (max-width: 375px) {
+  .list-style {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+.todo-delete-hint {
+  margin-left: auto;
+  display: none;
+  cursor: pointer;
+}
+
+.todo-entry:hover > .todo-delete-hint {
+  display: inline;
+}
+
+#controls {
+  justify-content: space-between;
+}
+
+#todo-left-display {
+  color: hsl(233, 14%, 35%);
+  font-size: 14px;
+}
+@media only screen and (max-width: 375px) {
+  #todo-left-display {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 376px) {
+  #todo-left-display {
+    width: 30%;
+  }
+}
+
+#todo-left-display.light {
+  color: hsl(236, 9%, 61%);
+}
+
+.control-button {
+  font-size: 16px;
+  font-weight: 700;
+  color: hsl(233, 14%, 35%);
+}
+@media only screen and (max-width: 375px) {
+  .control-button {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+.control-button.light {
+  color: hsl(236, 9%, 61%);
+}
+
+.control-button:hover {
+  color: white;
+}
+
+.control-button.light:hover {
+  color: hsl(233, 14%, 35%);
+}
+
+.control-button.active {
+  color: rgb(77, 103, 218);
+}
+
+@media only screen and (max-width: 375px) {
+  #todo-display-selection {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+}
+#todo-clear-completed {
+  color: hsl(233, 14%, 35%);
+  text-align: right;
+}
+@media only screen and (max-width: 375px) {
+  #todo-clear-completed {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 376px) {
+  #todo-clear-completed {
+    width: 30%;
+  }
+}
+
+#todo-clear-completed.light {
+  color: hsl(236, 9%, 61%);
+}
+
+#todo-clear-completed:hover {
+  color: hsl(236, 33%, 92%);
+}
+
+#todo-clear-completed.light:hover {
+  color: hsl(233, 14%, 35%);
+}
+
+#drag-hint {
+  font-size: 14px;
+  display: block;
+  color: hsl(233, 14%, 35%);
+  text-align: center;
+  margin-top: 50px;
+}
+
+#drag-hint.light {
+  color: hsl(236, 9%, 61%);
+}
+
+.attribution {
+  color: hsl(235, 24%, 19%);
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution > a {
+  color: hsl(229, 82%, 63%);
+}
+
+.attribution > a.light {
+  color: hsl(228, 43%, 27%);
+}
+
+/*# sourceMappingURL=style.css.map */

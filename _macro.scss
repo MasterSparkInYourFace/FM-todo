@@ -1,0 +1,45 @@
+@use "sass:list";
+@use "sass:meta";
+
+// cursed mixin. spams media queries all over the page.
+// you're welcome for the 2000 hour load times lmaoooooooo
+@mixin resp($props...) {
+    @at-root {
+        @media only screen and (max-width: 375px) {
+            // phone bad
+            & {
+                @each $k, $v in meta.keywords($props) {
+                    @if list.length($v) > 1 {
+                        $pv: list.nth($v, 2);
+                        @if $pv != Skip {
+                            #{$k}: $pv;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media only screen and (min-width: 376px) {
+            // desktop good
+            & {
+                @each $k, $v in meta.keywords($props) {
+                    $pv: list.nth($v, 1);
+                    @if $pv != Skip {
+                        #{$k}: $pv;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin pill($height) {
+    height: $height;
+    border-radius: calc($height / 2) / calc($height / 2);
+}
+
+@mixin gfont($name, $variations, $weights: 400) {
+    font-family: $name;
+    src: url("./fonts/" + $name + "-VariableFont_" + $variations + ".ttf") format(truetype) tech(variations);
+    font-weight: $weights;
+}
